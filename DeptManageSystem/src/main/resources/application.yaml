@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: DeptManageSystem
+  #数据库的连接信息
+  datasource:
+    url: jdbc:mysql://localhost:3306/deptmanagedatabase
+    username: root
+    password: 123123
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  servlet:
+    multipart:
+        max-file-size: 10MB
+        max-request-size: 100MB
+
+
+#mybatis配置
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+#配置事务管理日志级别
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: DEBUG
