@@ -80,4 +80,9 @@ public class EmpServiceImpl implements  EmpService {
         empExprMapper.deleteEmpExpr(ids);
     }
 
+    @Override
+    public Emp getEmp(Integer id) {
+        return empMapper.getEmp(id);
+    }
+
 }
