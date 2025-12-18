@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="demo.zhouzhou.mapper.StatisticMapper">
+    <select id="getJobOption" resultType="demo.zhouzhou.pojo.JobOptionList">
+        SELECT
+            -- 字典表的职位名称，不存在则显示“其他”
+            COALESCE(j.job_name, '其他') AS pos,
+            COUNT(*) AS num
+        FROM emp e
+-- 关联职位字典表（按职位编码匹配）
+                 LEFT JOIN job_dict j ON e.job = j.job_code
+-- 按职位编码分组（保证同一职位统计在一起）
+        GROUP BY e.job
+        ORDER BY num;
+    </select>
+    <select id="getGenderStastistic" resultType="java.util.Map">
+        SELECT
+            (CASE gender
+                 WHEN 1 THEN '男性员工'
+                 WHEN 2 THEN '女性员工'
+                 ELSE '未知' END ) AS name,
+            COUNT(*) AS value
+        FROM emp
+        GROUP BY gender;
+    </select>
+</mapper>
