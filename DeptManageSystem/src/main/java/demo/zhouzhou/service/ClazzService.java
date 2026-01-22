@@ -7,4 +7,12 @@ import demo.zhouzhou.pojo.PageResult;
 public interface ClazzService {
 
     PageResult<Clazz> getAllClazz(ClazzQueryParam queryParam);
+
+    void addClazz(Clazz clazz);
+
+    Clazz getClazzById(Integer id);
+
+    void updateClazz(Clazz clazz);
+
+    void deleteClazz(Integer id) throws Exception;
 }

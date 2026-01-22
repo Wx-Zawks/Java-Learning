@@ -23,4 +23,14 @@ public class Clazz {
 
     private String masterName; //班主任姓名
     private String status; //班级状态 - 未开班 , 在读 , 已结课
+
+    public void setClazzStatus(){
+        if (LocalDateTime.now().isBefore(this.getBeginDate().atStartOfDay())) {
+            this.setStatus("未开班");
+        } else if (LocalDateTime.now().isAfter(this.getEndDate().atStartOfDay())) {
+            this.setStatus("已结课");
+        } else  {
+            this.setStatus("在读中");
+        }
+    }
 }

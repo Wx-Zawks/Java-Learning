@@ -38,4 +38,7 @@ public interface EmpMapper {
 //            "where id = #{id}"
 //    )
     void updateEmp(Emp emp);
+
+    @Select("select emp.name from emp")
+    List<String> selectEmpNames();
 }

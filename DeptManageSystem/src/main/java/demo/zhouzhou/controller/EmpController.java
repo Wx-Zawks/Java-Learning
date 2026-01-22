@@ -65,4 +65,11 @@ public class EmpController {
         empService.updateEmp(emp);
         return Result.success();
     }
+
+    @GetMapping("/list")
+    public Result getEmpList() {
+        log.info("获取所有员工名称");
+        List<String> empList = empService.getEmpList();
+        return Result.success(empList);
+    }
 }
