@@ -9,6 +9,7 @@ import demo.zhouzhou.service.ClazzService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -50,5 +51,12 @@ public class ClazzController {
         log.info("根据id删除班级: {}",id);
         clazzService.deleteClazz(id);
         return Result.success();
+    }
+
+    @GetMapping("/list")
+    public Result getClazzList(){
+        log.info("查询所有班级");
+        List<String> clazzList = clazzService.getClazzList();
+        return Result.success(clazzList);
     }
 }

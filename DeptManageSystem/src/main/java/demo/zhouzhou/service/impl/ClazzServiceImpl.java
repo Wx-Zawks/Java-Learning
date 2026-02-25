@@ -68,4 +68,10 @@ public class ClazzServiceImpl implements ClazzService {
         }
         clazzMapper.deleteClazz(id);
     }
+
+    @Override
+    public List<String> getClazzList() {
+        List<String> clazzList = clazzMapper.selectClazzName();
+        return clazzList;
+    }
 }

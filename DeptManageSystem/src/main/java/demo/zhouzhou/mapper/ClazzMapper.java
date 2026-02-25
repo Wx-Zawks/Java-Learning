@@ -24,4 +24,6 @@ public interface ClazzMapper {
     @Delete("delete from clazz where id = #{id}")
     void deleteClazz(Integer id);
 
+    @Select("select name from clazz")
+    List<String> selectClazzName();
 }
