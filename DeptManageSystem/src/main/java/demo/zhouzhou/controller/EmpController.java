@@ -4,14 +4,11 @@ import demo.zhouzhou.pojo.Emp;
 import demo.zhouzhou.pojo.EmpQueryParam;
 import demo.zhouzhou.pojo.PageResult;
 import demo.zhouzhou.pojo.Result;
-import demo.zhouzhou.service.DeptService;
 import demo.zhouzhou.service.EmpService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Slf4j
@@ -46,5 +43,33 @@ public class EmpController {
         empService.saveEmp(emp);
         return Result.success();
 
+    }
+
+    @DeleteMapping
+    public Result deleteEmps(@RequestParam List<Integer> ids) {
+        log.info("批量删除员工：{}", ids);
+        empService.deleteEmps(ids);
+        return Result.success();
+    }
+
+    @GetMapping("/{id}")
+    public Result getEmp(@PathVariable Integer id) {
+        log.info("根据id查询回显员工信息: {}",id);
+        Emp emp = empService.getEmp(id);
+        return Result.success(emp);
+    }
+
+    @PutMapping
+    public Result updateEmp(@RequestBody Emp emp) {
+        log.info("修改员工信息: {}",emp);
+        empService.updateEmp(emp);
+        return Result.success();
+    }
+
+    @GetMapping("/list")
+    public Result getEmpList() {
+        log.info("获取所有员工名称");
+        List<String> empList = empService.getEmpList();
+        return Result.success(empList);
     }
 }
