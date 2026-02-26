@@ -36,4 +36,9 @@ public class StatisticServiceImpl implements StatisticService {
     public List<Map<String, Object>> getGenderOptions() {
         return statisticMapper.getGenderStastistic();
     }
+
+    @Override
+    public List<Map<String, Integer>> getStudentCountData() {
+        return statisticMapper.selectStudentCountData();
+    }
 }

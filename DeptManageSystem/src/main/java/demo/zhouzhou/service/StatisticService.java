@@ -9,4 +9,6 @@ public interface StatisticService {
     JobOption getJobOptions();
 
     List<Map<String, Object>> getGenderOptions();
+
+    List<Map<String, Integer>> getStudentCountData();
 }

@@ -15,4 +15,7 @@ public interface StatisticMapper {
 
     @MapKey("name")
     List<Map<String, Object>> getGenderStastistic();
+
+    @MapKey("")
+    List<Map<String, Integer>> selectStudentCountData();
 }

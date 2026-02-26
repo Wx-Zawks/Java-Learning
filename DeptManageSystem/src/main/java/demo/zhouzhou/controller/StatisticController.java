@@ -33,4 +33,10 @@ public class StatisticController {
         log.info("统计员工性别信息");
         return Result.success(statisticService.getGenderOptions());
     }
+
+    @GetMapping("/studentCountData")
+    public Result getStudentCountData() {
+        log.info("班级人数统计");
+        return Result.success(statisticService.getStudentCountData());
+    }
 }
