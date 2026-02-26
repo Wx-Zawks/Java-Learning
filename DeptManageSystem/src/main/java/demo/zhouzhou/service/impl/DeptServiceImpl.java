@@ -1,11 +1,13 @@
 package demo.zhouzhou.service.impl;
 
 import demo.zhouzhou.mapper.DeptMapper;
+import demo.zhouzhou.mapper.EmpMapper;
 import demo.zhouzhou.pojo.Dept;
 import demo.zhouzhou.service.DeptService;
 import org.apache.ibatis.javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -16,22 +18,30 @@ public class DeptServiceImpl  implements DeptService {
     @Autowired
     private DeptMapper deptMapper;
 
+    @Autowired
+    private EmpMapper empMapper;
+
     @Override
     public List<Dept> findAll() {
         return deptMapper.findAll();
     }
 
     @Override
-    public Dept deleteById(Integer id) throws NotFoundException {
+    @Transactional(rollbackFor = Exception.class)
+    public Dept deleteById(Integer id) throws Exception {
         // 步骤1：先查询要删除的部门
         Dept dept = deptMapper.findById(id);
         if (dept == null) {
             throw new NotFoundException("部门不存在，ID：" + id);
         }
-        // 步骤2：执行删除
-        deptMapper.deleteById(id);
-        // 步骤3：返回被删除的部门
-        return dept;
+        if (empMapper.selectEmpByDeptId(id) == null) {
+            // 步骤2：执行删除
+            deptMapper.deleteById(id);
+            // 步骤3：返回被删除的部门
+            return dept;
+        } else {
+            throw new Exception("部分下员工不为空！");
+        }
     }
 
     @Override

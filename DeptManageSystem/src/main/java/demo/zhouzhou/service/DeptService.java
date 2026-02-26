@@ -9,7 +9,7 @@ import java.util.List;
 public interface DeptService {
     public List<Dept> findAll();
 
-    public Dept deleteById(Integer id) throws NotFoundException;
+    public Dept deleteById(Integer id) throws Exception;
 
     void add(Dept dept);
 

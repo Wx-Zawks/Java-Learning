@@ -29,7 +29,7 @@ public class DeptController {
     }
 
     @DeleteMapping("/depts")
-    public Result delete(@RequestParam(required = true) Integer id) throws NotFoundException {
+    public Result delete(@RequestParam(required = true) Integer id) throws Exception {
 //        System.out.println("删除部门信息");
         log.info("删除部门信息: {}", id);
         Dept dept = deptService.deleteById(id);

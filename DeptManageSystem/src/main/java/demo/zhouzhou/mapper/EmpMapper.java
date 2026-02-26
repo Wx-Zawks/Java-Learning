@@ -3,6 +3,7 @@ package demo.zhouzhou.mapper;
 import demo.zhouzhou.pojo.Emp;
 import demo.zhouzhou.pojo.EmpQueryParam;
 import org.apache.ibatis.annotations.*;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.time.LocalDate;
@@ -33,6 +34,8 @@ public interface EmpMapper {
 
     Emp getEmp(Integer id);
 
+    @Select("select * from emp where dept_id = #{deptId}")
+    Emp selectEmpByDeptId(Integer deptId);
 //    @Update("update emp " +
 //            "set username = #{username}, password = #{password}, name = #{name}, gender = #{gender}, phone = #{phone}, job = #{job}, salary = #{salary}, image = #{image}, entry_date = #{entryDate}, dept_id = #{deptId}, create_time = #{createTime}, update_time = #{updateTime} " +
 //            "where id = #{id}"

@@ -1,5 +1,6 @@
 package demo.zhouzhou.service;
 
+import demo.zhouzhou.pojo.ClazzStatisticVO;
 import demo.zhouzhou.pojo.JobOption;
 
 import java.util.List;
@@ -10,5 +11,5 @@ public interface StatisticService {
 
     List<Map<String, Object>> getGenderOptions();
 
-    List<Map<String, Integer>> getStudentCountData();
+    ClazzStatisticVO getStudentCountData();
 }

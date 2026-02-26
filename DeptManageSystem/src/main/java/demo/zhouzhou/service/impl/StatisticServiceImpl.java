@@ -1,6 +1,7 @@
 package demo.zhouzhou.service.impl;
 
 import demo.zhouzhou.mapper.StatisticMapper;
+import demo.zhouzhou.pojo.ClazzStatisticVO;
 import demo.zhouzhou.pojo.JobOption;
 import demo.zhouzhou.pojo.JobOptionList;
 import demo.zhouzhou.service.StatisticService;
@@ -38,7 +39,25 @@ public class StatisticServiceImpl implements StatisticService {
     }
 
     @Override
-    public List<Map<String, Integer>> getStudentCountData() {
-        return statisticMapper.selectStudentCountData();
+    public ClazzStatisticVO getStudentCountData() {
+        List<Map<String, Object>> mapList = statisticMapper.selectStudentCountData();
+        // 2. 初始化 VO 和两个列表
+        ClazzStatisticVO vo = new ClazzStatisticVO();
+        List<String> clazzList = new ArrayList<>();
+        List<Integer> dataList = new ArrayList<>();
+        // 3. 遍历原始数据，拆分到两个列表（顺序一一对应）
+        for (Map<String, Object> map : mapList) {
+            String clazzName = (String) map.get("name");
+            Integer studentCount = ((Number) map.get("count")).intValue(); // 兼容 Long/Integer
+
+            clazzList.add(clazzName);
+            dataList.add(studentCount);
+        }
+
+        // 4. 给 VO 赋值
+        vo.setClazzList(clazzList);
+        vo.setDataList(dataList);
+
+        return vo;
     }
 }

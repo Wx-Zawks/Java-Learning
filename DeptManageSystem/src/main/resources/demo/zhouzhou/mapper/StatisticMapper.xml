@@ -26,6 +26,6 @@
         GROUP BY gender;
     </select>
     <select id="selectStudentCountData" resultType="java.util.Map">
-
+        select c.name as name,count(s.id) as count from clazz c left join student s on c.id = s.clazz_id group by c.id,c.name order by c.id
     </select>
 </mapper>

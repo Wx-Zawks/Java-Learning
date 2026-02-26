@@ -1,5 +1,6 @@
 package demo.zhouzhou.mapper;
 
+import demo.zhouzhou.pojo.ClazzStatisticVO;
 import demo.zhouzhou.pojo.JobOption;
 import demo.zhouzhou.pojo.JobOptionList;
 import org.apache.ibatis.annotations.MapKey;
@@ -16,6 +17,5 @@ public interface StatisticMapper {
     @MapKey("name")
     List<Map<String, Object>> getGenderStastistic();
 
-    @MapKey("")
-    List<Map<String, Integer>> selectStudentCountData();
+    List<Map<String, Object>> selectStudentCountData();
 }
