@@ -44,4 +44,7 @@ public interface EmpMapper {
 
     @Select("select emp.name from emp")
     List<String> selectEmpNames();
+
+    @Select("select username,name,id from emp where username = #{username} and password = #{password}")
+    Emp selectEmpByUsernameAndPassword(String username, String password);
 }

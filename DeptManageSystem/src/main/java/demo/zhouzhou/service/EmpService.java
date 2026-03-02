@@ -2,6 +2,7 @@ package demo.zhouzhou.service;
 
 import demo.zhouzhou.pojo.Emp;
 import demo.zhouzhou.pojo.EmpQueryParam;
+import demo.zhouzhou.pojo.LoginInfo;
 import demo.zhouzhou.pojo.PageResult;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -21,4 +22,6 @@ public interface EmpService {
     void updateEmp(Emp emp);
 
     List<String> getEmpList();
+
+    LoginInfo login(Emp emp);
 }

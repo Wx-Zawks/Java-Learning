@@ -4,11 +4,9 @@ import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import demo.zhouzhou.mapper.EmpExprMapper;
 import demo.zhouzhou.mapper.EmpMapper;
-import demo.zhouzhou.pojo.Emp;
-import demo.zhouzhou.pojo.EmpExpr;
-import demo.zhouzhou.pojo.EmpQueryParam;
-import demo.zhouzhou.pojo.PageResult;
+import demo.zhouzhou.pojo.*;
 import demo.zhouzhou.service.EmpService;
+import demo.zhouzhou.utils.JWTutils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -17,7 +15,9 @@ import org.springframework.util.CollectionUtils;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class EmpServiceImpl implements  EmpService {
@@ -104,6 +104,19 @@ public class EmpServiceImpl implements  EmpService {
     @Override
     public List<String> getEmpList() {
         return empMapper.selectEmpNames();
+    }
+
+    @Override
+    public LoginInfo login(Emp emp) {
+        Emp selectedEmp = empMapper.selectEmpByUsernameAndPassword(emp.getUsername(),emp.getPassword());
+        if (selectedEmp != null) {
+            Map<String,Object> map = new HashMap<>();
+            map.put("id",selectedEmp.getId());
+            map.put("username",selectedEmp.getUsername());
+            String token = JWTutils.generateJwt(map);
+            return new LoginInfo(selectedEmp.getId(),selectedEmp.getUsername(),selectedEmp.getName(), token);
+        }
+        return null;
     }
 
 }
