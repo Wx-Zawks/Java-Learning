@@ -1,5 +1,6 @@
 package demo.zhouzhou.controller;
 
+import demo.zhouzhou.annotation.OperatorLogAnnotation;
 import demo.zhouzhou.pojo.Emp;
 import demo.zhouzhou.pojo.EmpQueryParam;
 import demo.zhouzhou.pojo.PageResult;
@@ -37,6 +38,7 @@ public class EmpController {
         return Result.success(pageResult);
     }
 
+    @OperatorLogAnnotation
     @PostMapping
     public Result saveEmp(@RequestBody Emp emp) {
         log.info("新增员工信息: {}", emp);
@@ -45,6 +47,7 @@ public class EmpController {
 
     }
 
+    @OperatorLogAnnotation
     @DeleteMapping
     public Result deleteEmps(@RequestParam List<Integer> ids) {
         log.info("批量删除员工：{}", ids);
@@ -59,6 +62,7 @@ public class EmpController {
         return Result.success(emp);
     }
 
+    @OperatorLogAnnotation
     @PutMapping
     public Result updateEmp(@RequestBody Emp emp) {
         log.info("修改员工信息: {}",emp);

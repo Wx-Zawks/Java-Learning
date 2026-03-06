@@ -1,5 +1,6 @@
 package demo.zhouzhou.controller;
 
+import demo.zhouzhou.annotation.OperatorLogAnnotation;
 import demo.zhouzhou.pojo.Dept;
 import demo.zhouzhou.pojo.Result;
 import demo.zhouzhou.service.DeptService;
@@ -28,6 +29,7 @@ public class DeptController {
         return Result.success(deptList);
     }
 
+    @OperatorLogAnnotation
     @DeleteMapping("/depts")
     public Result delete(@RequestParam(required = true) Integer id) throws Exception {
 //        System.out.println("删除部门信息");
@@ -36,6 +38,7 @@ public class DeptController {
         return Result.success(dept);
     }
 
+    @OperatorLogAnnotation
     @PostMapping("/depts")
     public Result add(@RequestBody Dept dept) {
 //        System.out.println("添加部门信息");
@@ -52,6 +55,7 @@ public class DeptController {
         return Result.success(dept);
     }
 
+    @OperatorLogAnnotation
     @PutMapping("/depts")
     public Result update(@RequestBody Dept dept) throws NotFoundException {
 //        System.out.println("更新部门信息");
