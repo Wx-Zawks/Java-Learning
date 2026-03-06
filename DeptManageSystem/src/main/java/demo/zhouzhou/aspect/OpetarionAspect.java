@@ -2,6 +2,7 @@ package demo.zhouzhou.aspect;
 
 import demo.zhouzhou.mapper.OperateLogMapper;
 import demo.zhouzhou.pojo.OperateLog;
+import demo.zhouzhou.utils.CurrentHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -22,19 +23,22 @@ public class OpetarionAspect {
     @Around("@annotation(demo.zhouzhou.annotation.OperatorLogAnnotation)")
     public Object RecordOperation(ProceedingJoinPoint joinPoint) throws Throwable {
         log.info("记录操作日志保存至数据库");
-        OperateLog log = new OperateLog();
+        OperateLog olog = new OperateLog();
         long start = System.currentTimeMillis();
         Object result = joinPoint.proceed();
         long end = System.currentTimeMillis();
         long time = end - start;
-        log.setOperateTime(LocalDateTime.now());
-        log.setCostTime(time);
-        log.setMethodName(joinPoint.getSignature().getName());
-        log.setClassName(joinPoint.getTarget().getClass().getName());
-        log.setMethodParams(joinPoint.getArgs().toString());
-        log.setReturnValue(result.toString());
-        log.setOperateEmpId(1);
-        operateLogMapper.insert(log);
+        // 封装操作日志
+        olog.setOperateTime(LocalDateTime.now());
+        olog.setCostTime(time);
+        olog.setMethodName(joinPoint.getSignature().getName());
+        olog.setClassName(joinPoint.getTarget().getClass().getName());
+        olog.setMethodParams(joinPoint.getArgs().toString());
+        olog.setReturnValue(result.toString());
+        Integer empId = CurrentHolder.getCurrentId();
+        olog.setOperateEmpId(empId);
+        operateLogMapper.insert(olog);
+        log.info("保存操作日志成功");
         return result;
     }
 }

@@ -1,11 +1,14 @@
 package demo.zhouzhou.interceptor;
 
+import demo.zhouzhou.utils.CurrentHolder;
 import demo.zhouzhou.utils.JWTutils;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 
 @Slf4j
 @Component
@@ -23,7 +26,10 @@ public class TokenInterceptor implements HandlerInterceptor {
             return false;
         } else {
             try {
-                JWTutils.parseJWT(token);
+                Claims claims = JWTutils.parseJWT(token);
+                Integer empId = (Integer) claims.get("id");
+                CurrentHolder.setCurrentId(empId);
+                log.info("记录当前用户id：{}并存入ThreadLocal", empId);
             } catch (Exception e) {
                 log.info("令牌错误，禁止放行");
                 response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
@@ -32,5 +38,14 @@ public class TokenInterceptor implements HandlerInterceptor {
             log.info("校验通过放行");
             return true;
         }
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+        CurrentHolder.remove();
+        log.info("postHandle");
+        log.info("清空ThreadLocal");
+        HandlerInterceptor.super.postHandle(request, response, handler, modelAndView);
+
     }
 }
