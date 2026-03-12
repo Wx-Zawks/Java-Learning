@@ -1,5 +1,6 @@
 package demo.zhouzhou.controller;
 
+import demo.zhouzhou.annotation.OperatorLogAnnotation;
 import demo.zhouzhou.pojo.PageResult;
 import demo.zhouzhou.pojo.Result;
 import demo.zhouzhou.pojo.Student;
@@ -24,6 +25,7 @@ public class StudentController {
         return Result.success(pageResult);
     }
 
+    @OperatorLogAnnotation
     @PostMapping
     public Result addStudent(@RequestBody Student student){
         log.info("添加学生:{}", student.toString());
@@ -38,6 +40,7 @@ public class StudentController {
         return Result.success(student);
     }
 
+    @OperatorLogAnnotation
     @PutMapping
     public Result updateStudent(@RequestBody Student student){
         log.info("修改学生信息:{}", student.toString());
@@ -45,6 +48,7 @@ public class StudentController {
         return Result.success();
     }
 
+    @OperatorLogAnnotation
     @DeleteMapping("/{ids}")
     public Result deleteStudentById(@PathVariable String ids) throws Exception {
         log.info("根据id批量删除学生:{}", ids);
@@ -52,6 +56,7 @@ public class StudentController {
         return Result.success();
     }
 
+    @OperatorLogAnnotation
     @PutMapping("/violation/{id}/{score}")
     public Result updateStudentViolation(@PathVariable Integer id, @PathVariable Integer score) throws Exception {
         log.info("学生违纪处理:{},{}", id, score);

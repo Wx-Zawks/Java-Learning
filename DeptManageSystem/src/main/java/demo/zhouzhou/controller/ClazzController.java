@@ -1,6 +1,7 @@
 package demo.zhouzhou.controller;
 
 
+import demo.zhouzhou.annotation.OperatorLogAnnotation;
 import demo.zhouzhou.pojo.Clazz;
 import demo.zhouzhou.pojo.ClazzQueryParam;
 import demo.zhouzhou.pojo.PageResult;
@@ -25,6 +26,7 @@ public class ClazzController {
         return Result.success(result);
     }
 
+    @OperatorLogAnnotation
     @PostMapping
     public Result addClazz(@RequestBody Clazz clazz){
         log.info("添加班级: {}", clazz.toString());
@@ -39,6 +41,7 @@ public class ClazzController {
         return Result.success(clazz);
     }
 
+    @OperatorLogAnnotation
     @PutMapping
     public Result updateClazz(@RequestBody Clazz clazz){
         log.info("更新班级信息：{}",clazz.toString());
@@ -46,6 +49,7 @@ public class ClazzController {
         return Result.success();
     }
 
+    @OperatorLogAnnotation
     @DeleteMapping("/{id}")
     public Result deleteClazz(@PathVariable Integer id) throws Exception {
         log.info("根据id删除班级: {}",id);
